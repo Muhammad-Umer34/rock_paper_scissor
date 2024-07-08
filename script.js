@@ -1,71 +1,92 @@
-let humanscore = 0;
-let computerscore = 0;
+document.addEventListener('DOMContentLoaded', function() {
+    let humanScore = 0;
+    let computerScore = 0;
 
-function playround(humanchoice, comchoice) {
-    if (humanchoice == "rock" && comchoice == "scissors") {
-        humanscore++;
-        console.log("Rock Beats Scissors!");
-    }
-    else if (humanchoice == "paper" && comchoice == "scissors") {
-        computerscore++;
-        console.log("Scissors Beats Paper!");
-    }
-    else if (humanchoice == "rock" && comchoice == "paper") {
-        computerscore++;
-        console.log("Paper Beats Rock!");
-    }
-    else if (humanchoice == "scissors" && comchoice == "paper") {
-        humanscore++;
-        console.log("Scissors Beats Paper!");
-    }
-    else if (humanchoice == "scissors" && comchoice == "rock") {
-        computerscore++;
-        console.log("Rock Beats Scissors!");
-    }
-    else if (humanchoice == "paper" && comchoice == "rock") {
-        humanscore++;
-        console.log("Paper Beats Rock!");
-    }
-    else {
-        console.log("It's a tie!");
-    }
-}
+    const rockButton = document.querySelector('.Rock');
+    const paperButton = document.querySelector('.Paper');
+    const scissorButton = document.querySelector('.Scissor');
 
-function getcomputerchoice() {
-    let value = Math.random();
-    if (value <= 0.3) {
-        return "rock";
-    } else if (value > 0.3 && value <= 0.6) {
-        return "paper";
+    const userScoreElement = document.querySelector('.user-score');
+    const compScoreElement = document.querySelector('.comp-score');
+    const descriptionElement = document.querySelector('.description');
+
+    // Add event listeners for user choices
+    if (rockButton) {
+        rockButton.addEventListener('click', function() {
+            playRound("Rock");
+        });
     } else {
-        return "scissors";
+        console.error('Rock element not found');
     }
-}
 
-function gethumanchoice() {
-    let input;
-    do {
-        input = prompt("Choose one: rock, paper, or scissors");
-        input = input.toLowerCase();
-    } while (input != "rock" && input != "paper" && input != "scissors");
-    return input;
-}
-
-function playgame() {
-    for (let i = 0; i < 5; i++) {
-        let humanchoice = gethumanchoice();
-        let comchoice = getcomputerchoice();
-        console.log("Human Choice:", humanchoice);
-        console.log("Computer Choice:", comchoice);
-        playround(humanchoice, comchoice);
-    }
-    if (humanscore > computerscore) {
-        console.log("Human Wins!");
-    } else if (computerscore > humanscore) {
-        console.log("Computer Wins!");
+    if (paperButton) {
+        paperButton.addEventListener('click', function() {
+            playRound("Paper");
+        });
     } else {
-        console.log("It's a tie!");
+        console.error('Paper element not found');
     }
-}
 
-playgame();
+    if (scissorButton) {
+        scissorButton.addEventListener('click', function() {
+            playRound("Scissor");
+        });
+    } else {
+        console.error('Scissor element not found');
+    }
+
+    function getComputerChoice() {
+        let number = Math.random();
+
+        if (number < 0.33) {
+            return "Rock";
+        } else if (number < 0.66) {
+            return "Paper";
+        } else {
+            return "Scissor";
+        }
+    }
+
+    function playRound(humanChoice) {
+        const computerChoice = getComputerChoice();
+
+        console.log('Human choice:', humanChoice);
+        console.log('Computer choice:', computerChoice);
+
+        if (humanChoice === computerChoice) {
+            console.log("It's a tie!");
+            updateDescription("It's a tie!");
+        } else if (
+            (humanChoice === "Rock" && computerChoice === "Scissor") ||
+            (humanChoice === "Paper" && computerChoice === "Rock") ||
+            (humanChoice === "Scissor" && computerChoice === "Paper")
+        ) {
+            humanScore++;
+            console.log("You win this round!");
+            updateDescription(`You win this round! ${humanChoice} beats ${computerChoice}`);
+        } else {
+            computerScore++;
+            console.log("Computer wins this round!");
+            updateDescription(`Computer wins this round! ${computerChoice} beats ${humanChoice}`);
+        }
+
+        updateScore();
+    }
+
+    function updateScore() {
+        if (userScoreElement && compScoreElement) {
+            userScoreElement.textContent = humanScore;
+            compScoreElement.textContent = computerScore;
+        } else {
+            console.error('Score elements not found');
+        }
+    }
+
+    function updateDescription(message) {
+        if (descriptionElement) {
+            descriptionElement.textContent = message;
+        } else {
+            console.error('Description element not found');
+        }
+    }
+});

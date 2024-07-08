@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #17222b; /* Dark background color */
+}
+
+.game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative; /* Ensure relative positioning for absolute child */
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    background-color: orange;
+    width: 100%;  /* Ensure the header takes the full width */
+    padding: 10px 0;
+    position: absolute;
+    top: 0;
+}
+
+.header h2 {
+    font-weight: 100;
+    font-size: 40px;
+    color: rgb(90, 84, 84);
+}
+
+.lowerpart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 80px; /* Adjust margin to account for the header height */
+}
+
+.score-container {
+    display: flex;
+    align-items: center;
+    border: 2px solid white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: #17222b; /* Match background color */
+    margin-bottom: 20px; /* Space below the score container */
+}
+
+.score-box {
+    background-color: #eb5d57; /* Red background color */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.score {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 2rem; /* Adjust font size as needed */
+    margin: 0 20px; /* Space around the score */
+}
+
+.colon {
+    margin: 0 10px; /* Space around the colon */
+}
+
+.description {
+    display: flex;
+    color: white;
+    gap: 20px;
+    font-weight: bolder;
+    font-size: large;
+}
+.buttons{
+    display: flex;
+    margin-top: 30px;
+    gap: 30px;
+}
+.img img{
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    cursor:pointer;
+}
+.statement{
+    margin-top: 20px;
+    color: white;
+}
